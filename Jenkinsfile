@@ -12,7 +12,10 @@ pipeline
     {
         stage('Print')
         {
-            echo 'OK'
+            step
+            {
+                echo 'OK'
+            }
         }
         stage('Checkout') 
         {
