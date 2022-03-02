@@ -1,29 +1,38 @@
-pipeline {
+pipeline
+{
     agent any
 
-    stages
+    environment
     {
-       stage('Checkout SCM')
-       {
-            steps
-            {
-                git 'https://github.com/SandeepChatuphale/javawebmaven.git'
-            }
-         }        
-       stage('Build')
+        PATH="/opt/apache-maven-3.8.4/bin/:$PATH"
+    }
+    
+
+    stages 
+    {
+        stage('Checkout') 
         {
-            steps
+            steps 
+            {
+                git branch: 'main', url: 'https://github.com/SandeepChatuphale/javawebmaven.git'
+            }
+        }
+        
+        stage('Maven Package') 
+        {
+            steps 
             {
                 sh 'mvn clean package'
             }
-         }
-   
-        /*stage('deploy') 
+        }
+        
+        stage('Copy war') 
         {
-            steps {
-                deploy adapters: [tomcat9(credentialsId: 'df166052-2ae1-4ab7-9807-f0bab8c51d22', path: '', url: 'http://65.0.95.72:8080/')], contextPath: 'test', war: '**/*.war'
+            steps 
+            {
+               sshPublisher(publishers: [sshPublisherDesc(configName: 'TomcatServer', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cp -r *.war /opt/apache-tomcat-9.0.58/webapps/', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target', sourceFiles: 'target/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
-        }*/
-
+        }
+        
     }
 }
