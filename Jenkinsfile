@@ -10,6 +10,10 @@ pipeline
 
     stages 
     {
+        stage('Print')
+        {
+            echo 'OK'
+        }
         stage('Checkout') 
         {
             steps 
