@@ -12,7 +12,7 @@ pipeline
     {
         stage('Print')
         {
-            step
+            steps
             {
                 echo 'OK'
             }
