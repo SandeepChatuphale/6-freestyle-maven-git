@@ -7,7 +7,7 @@ pipeline {
        {
             steps
             {
-                git 'https://github.com/ravdy/javaloginapp.git'
+                git 'https://github.com/SandeepChatuphale/javawebmaven.git'
             }
          }        
        stage('Build')
