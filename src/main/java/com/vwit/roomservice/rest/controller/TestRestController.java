@@ -10,6 +10,6 @@ public class TestRestController{
 	public String hi()
 	{
 		System.out.println("OKkokokokokoko");
-		return "Hello with AWS Code Pipeline";
+		return "Hello with AWS Code Pipeline !!!!";
 	}
 }
